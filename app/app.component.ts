@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import game from './game';
 
 @Component({
     selector: 'my-app',
@@ -15,7 +16,7 @@ import {Component} from 'angular2/core';
     <div class="gameResults" *ngIf="winner===0">Winner: First Player</div>
     <div class="gameResults" *ngIf="winner===1">Winner: Second Player</div>
     <button class="restart" (click)="restart()">Restart</button>
-`,
+    `,
     styles: [`body {
     margin: 0px;
     font-family: "Fira Mono", Arial, Helvetica, sans-serif;
@@ -80,14 +81,14 @@ span {
 })
 
 export class AppComponent {
-    public currentPlayer = 1;
+    public currentPlayer = 0;
     public board = game.createBoard();
     public winner;
 
     restart() {
         this.board = game.createBoard();
         this.winner = null;
-        this.currentPlayer = 1;
+        this.currentPlayer = 0;
     }
 
     cellClicked(row, col) {
@@ -104,112 +105,3 @@ export class AppComponent {
         }
     }
 }
-
-var DIMENSION = 3;
-
-function boardLoop(board, fn) {
-    for (var row = 0; row < DIMENSION; row++) {
-        for (var col = 0; col < DIMENSION; col++) {
-            fn(board[row][col], {row, col});
-        }
-    }
-}
-
-var game = {
-    /**
-     * Create a new board (2D array)
-     */
-        createBoard() {
-        var board = [];
-        for (var row = 0; row < DIMENSION; row++) {
-            board[row] = [];
-            for (var col = 0; col < DIMENSION; col++) {
-                board[row][col] = null;
-            }
-        }
-
-        return board;
-    },
-
-    /**
-     * NON-DESTRUCTIVE, PURE function for returning a new board with the
-     * given cell updated
-     */
-    set(board, val, row, col) {
-        if (board[row][col] != null) {
-            console.warn(`Attempted to set on cell that has a value: row: ${row} col: ${col} value: ${val}`);
-            return board;
-        }
-
-        return [
-            ...board.slice(0, row),
-            [
-                ...board[row].slice(0, col),
-                val,
-                ...board[row].slice(col + 1)
-            ],
-            ...board.slice(row + 1)
-        ];
-    },
-
-    /**
-     * Check a slice of the board for winner
-     */
-        check(arr) {
-        var clone = arr.slice(0);
-        var sum = 0;
-        while (clone.length) {
-            var val = clone.pop();
-            if (val == null) {
-                return;
-            }
-            sum += val;
-        }
-        if (sum === 0 || sum === DIMENSION) {
-            return {
-                winner: sum / DIMENSION || 0
-            };
-        }
-        return;
-    },
-
-    /**
-     * Check if there is a winner on the board
-     */
-        checkBoard(board) {
-        var winner;
-
-        // Check rows
-        winner = board.reduce((hasWon, row) => hasWon || game.check(row), false);
-
-        // Check cols
-        var cols = [];
-        for (var i = 0; i < DIMENSION; i++) {
-            cols.push(board.map(row => row[i]));
-        }
-        winner = winner || cols.reduce((hasWon, col) => hasWon || game.check(col), false);
-
-        // Check diagonals
-        var diagonals = [
-            board.map((row, i) => row[i]),
-            board.map((row, i) => row[DIMENSION - 1 - i])
-        ];
-        winner = winner || diagonals.reduce((hasWon, diagonal) => hasWon || game.check(diagonal), false);
-
-        return winner;
-    },
-
-    display(board) {
-        var display = '';
-        var prevRow;
-        boardLoop(board, (val, coord) => {
-            if (coord.row !== prevRow) {
-                display += '\n';
-                prevRow = coord.row;
-            }
-            display += `${val == null ? '-' : val} `;
-        });
-        display += '\n';
-        console.log(display);
-    }
-};
