@@ -55,7 +55,7 @@ npm start
 ````
 
 #Game.js
-I've provided basic game logic so everyone can focus on React.  You may move and modify the game file to suit your needs!
+I've provided basic game logic so everyone can focus on Angular.  You may move and modify the game file to suit your needs!
 
 ###Usage
 ```javascript
