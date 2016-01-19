@@ -1,10 +1,9 @@
 import { Component } from 'angular2/core';
-import { MyTitle } from './my-title/my-title';
+import { Board } from './board.component';
 
 @Component({
-
     selector: 'my-app',
     templateUrl: 'app/app.html',
-    directives: [ MyTitle ]
+    directives: [ Board ]
 })
 export class AppComponent { }
