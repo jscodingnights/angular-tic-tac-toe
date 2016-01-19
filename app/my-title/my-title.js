@@ -18,7 +18,7 @@ System.register(['angular2/core'], function(exports_1) {
         execute: function() {
             MyTitle = (function () {
                 function MyTitle() {
-                    this.title = 'Tic Tac Toe';
+                    this.title = 'Tic Tac Toe!';
                 }
                 MyTitle = __decorate([
                     core_1.Component({
