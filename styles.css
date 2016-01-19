@@ -23,13 +23,13 @@ body {
     width: 33%;
     outline: 1px solid black;
     position: relative;
+}
 
-    span {
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 100pt;
-    }
+span {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100pt;
 }
 
 .board {
