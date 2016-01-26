@@ -8,8 +8,8 @@ import game from './game';
     <div class="board">
         <div *ngFor="#row of board;#rowNo=index" class="row">
             <div *ngFor="#cell of row;#colNo=index" class="cell" (click)="cellClicked(rowNo, colNo)">
-                <span *ngIf="cell===0">X</span>
-                <span *ngIf="cell===1">O</span>
+                <span class="marker" *ngIf="cell===0">X</span>
+                <span class="marker" *ngIf="cell===1">O</span>
             </div>
         </div>
     </div>
