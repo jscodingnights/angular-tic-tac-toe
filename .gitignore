@@ -9,5 +9,4 @@ npm-debug.log
 
 # Typescript
 #
-app/*.js
-app/*.js.map
+dist/*

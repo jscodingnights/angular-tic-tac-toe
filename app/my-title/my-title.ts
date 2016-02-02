@@ -6,6 +6,6 @@ import {Component} from 'angular2/core';
 })
 export class MyTitle {
 
-  public title : String = 'Tic Tac Toe';
+  public title : String = 'Tic Tac Toe!!!';
 
 }
