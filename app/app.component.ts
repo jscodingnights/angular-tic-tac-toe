@@ -30,7 +30,7 @@ export class AppComponent {
     }
 
     cellClicked(row, col) {
-        if (this.board[row][col] === 0 || this.board[row][col] === 1 || this.winner)
+        if (this.board[row][col] === 0 || this.board[row][col] === 1 || this.winner != null)
             return;
 
         this.currentPlayer++;
